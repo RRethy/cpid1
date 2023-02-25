@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 tokio = { version = "1.25.0", features = ["full"] }
+tokio-stream = "0.1.12"
+libc = "0.2"
