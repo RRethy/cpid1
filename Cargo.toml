@@ -2,11 +2,14 @@
 name = "cpid1"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Adam Regasz-Rethy <adam.regaszrethy@gmail.com"]
 
 [dependencies]
-tokio = { version = "1.25.0", features = ["full"] }
-tokio-stream = "0.1.12"
-libc = "0.2"
+tokio = { version = "1.25.0", features = ["macros", "rt-multi-thread", "signal"] }
 nix = "0.26.2"
+
+[profile.release] # Release profile to optimize for size
+strip = true # Strip debug symbols
+opt-level = "s" # Optimize for size
+lto = true # Link-time optimization
+codegen-units = 1 # Single codegen unit
