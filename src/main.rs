@@ -1,13 +1,12 @@
-use clap::Parser;
-
-#[derive(Parser)]
-#[command(about = "An init process purpose-built for containers")]
-struct Cli {
-    command: Vec<String>,
-}
+use std::process::Command;
 
 fn main() {
-    let cli = Cli::parse();
-
-    println!("command: {:?}", cli.command);
+    let args = std::env::args().collect::<Vec<_>>();
+    println!("command: {:?}", args);
+    Command::new(&args[1])
+        .args(&args[2..])
+        .spawn()
+        .expect("failed to execute process")
+        .wait()
+        .expect("failed to wait on process");
 }
